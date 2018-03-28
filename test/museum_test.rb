@@ -47,6 +47,8 @@ class MuseumTest < MiniTest::Test
     dmns.admit(sally)
     assert_equal 40, dmns.revenue
   end
+
+  
 # Iteration 3 - Exhibit Tracking
 # Add the following methods to your Museum class:
 #
