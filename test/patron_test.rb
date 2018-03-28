@@ -10,21 +10,27 @@ require "Minitest/pride"
 class PatronTest < MiniTest::Test
 
   def test_it_exists
-    patron = Patron.new
+    patron = Patron.new("Bob")
     assert_instance_of Patron, patron
   end
-# Patrons have a name and interests. They start with no interests, but interests can be added. Patrons should follow this interaction pattern:
-#
-# bob = Patron.new("Bob")
-# #=> #<Patron:0x00007fdf16ba6128 @interests=[], @name="Bob">
-# > bob.name
-# #=> "Bob"
-# > bob.interests
-# #=> []
-# > bob.add_interest("Dead Sea Scrolls")
-# > bob.add_interest("Gems and Minerals")
-# > bob.interests
-# #=> ["Dead Sea Scrolls", "Gems and Minerals"]
+
+  def test_it_has_a_name
+    patron = Patron.new("Bob")
+    assert_equal "Bob", patron.name
+  end
+
+  def test_it_starts_with_no_interests
+    patron = Patron.new("Bob")
+    assert_equal [], patron.interests
+  end
+
+  def test_it_can_add_interests
+    bob = Patron.new("Bob")
+    bob.add_interest("Dead Sea Scrolls")
+    bob.add_interest("Gems and Minerals")
+    bob.interests
+    assert_equal ["Dead Sea Scrolls", "Gems and Minerals"], bob.interests
+  end
 
 end
 # Iteration 1 - Museum
