@@ -28,4 +28,8 @@ class Museum
     end
   end
 
+  def patrons_of(exhibit)
+
+  end 
+
 end
