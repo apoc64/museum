@@ -1,4 +1,5 @@
 
+
 class Museum
   attr_reader :name,
               :exhibits,
@@ -6,23 +7,24 @@ class Museum
 
   def initialize(name)
     @name = name
-    @exhibits = {} #{"name" => cost}
+    @exhibits = []
+    # {} #{"name" => cost}
     @revenue = 0
   end
 
   def add_exhibit(name, cost)
-    @exhibits[name] = cost
+    # @exhibits[name] = cost
+    exhibit = Exhibit.new(name, cost)
+    exhibits << exhibit
   end
 
   def admit(patron)
     @revenue += 10
-    #emun patron interests
     patron.interests.each do |interest|
-      #if they equal museum exhibit names
-      if @exhibits.include?(interest)
-        @revenue += @exhibits[interest]
+      exhibit = @exhibits.find { |exhibit| exhibit.name == interest }
+      if !exhibit.nil?
+        @revenue += exhibit.cost
       end
-      #add cost of exhibit to revenue
     end
   end
 
