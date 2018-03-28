@@ -34,4 +34,11 @@ class Museum
     exhibit.patrons
   end
 
+  def exhibits_by_attendees
+    sorted = exhibits.sort_by { |exhibit| exhibit.patrons.count }
+    sorted.map do |exhibit|
+      exhibit.name
+    end.reverse
+  end
+
 end
