@@ -1,5 +1,6 @@
 # Iteration 1 - Museum
 require_relative "../lib/museum"
+require_relative "../lib/patron"
 require 'pry'
 require "Minitest/autorun"
 require "Minitest/pride"
@@ -14,36 +15,38 @@ class MuseumTest < MiniTest::Test
   def test_it_has_a_name
     dmns = Museum.new("Denver Museum of Nature and Science")
     assert_equal "Denver Museum of Nature and Science", dmns.name
-end
+  end
 
-def test_it_can_add_exhibits
-  dmns = Museum.new("Denver Museum of Nature and Science")
-  dmns.add_exhibit("Dead Sea Scrolls", 10)
-  dmns.add_exhibit("Gems and Minerals", 0)
-  assert_equal ({"Dead Sea Scrolls" => 10, "Gems and Minerals" => 0}), dmns.exhibits
-end
+  def test_it_can_add_exhibits
+    dmns = Museum.new("Denver Museum of Nature and Science")
+    dmns.add_exhibit("Dead Sea Scrolls", 10)
+    dmns.add_exhibit("Gems and Minerals", 0)
+    assert_equal ({"Dead Sea Scrolls" => 10, "Gems and Minerals" => 0}), dmns.exhibits
+  end
 
-# Iteration 2 - Admitting Patrons and Revenue
-# Museums can admit Patrons. When a Patron is admitted, the Museum gets 10 dollars for general admittance plus revenue for each exhibit the Patron is interested in. Some Patrons have interests for which there is no exhibit, and thus no revenue is generated. Follow this interaction pattern:
-#
-# > dmns = Museum.new("Denver Museum of Nature and Science")
-# > dmns.add_exhibit("Dead Sea Scrolls", 10)
-# > dmns.add_exhibit("Gems and Minerals", 0)
-# >
-# > bob = Patron.new("Bob")
-# > bob.add_interest("Gems and Minerals")
-# > bob.add_interest("Dead Sea Scrolls")
-# > bob.add_interest("Imax")
-# >
-# > sally = Patron.new("Sally")
-# > sally.add_interest("Dead Sea Scrolls")
-# >
-# > dmns.revenue
-# #=> 0
-# > dmns.admit(bob)
-# > dmns.admit(sally)
-# > dmns.revenue
-# #=> 40
+  # Iteration 2 - Admitting Patrons and Revenue
+  # Museums can admit Patrons. When a Patron is admitted, the Museum gets 10 dollars for general admittance plus revenue for each exhibit the Patron is interested in. Some Patrons have interests for which there is no exhibit, and thus no revenue is generated. Follow this interaction pattern:
+  #
+  def test_it_can_admit_patrons_and_generate_revenue
+    dmns = Museum.new("Denver Museum of Nature and Science")
+    dmns.add_exhibit("Dead Sea Scrolls", 10)
+    dmns.add_exhibit("Gems and Minerals", 0)
+
+    bob = Patron.new("Bob")
+    bob.add_interest("Gems and Minerals")
+    bob.add_interest("Dead Sea Scrolls")
+    bob.add_interest("Imax")
+
+    sally = Patron.new("Sally")
+    sally.add_interest("Dead Sea Scrolls")
+
+    assert_equal 0, dmns.revenue
+
+    dmns.admit(bob)
+    assert_equal 20, dmns.revenue
+    dmns.admit(sally)
+    assert_equal 40, dmns.revenue
+  end
 # Iteration 3 - Exhibit Tracking
 # Add the following methods to your Museum class:
 #
