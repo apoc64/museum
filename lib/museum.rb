@@ -23,13 +23,15 @@ class Museum
     patron.interests.each do |interest|
       exhibit = @exhibits.find { |exhibit| exhibit.name == interest }
       if !exhibit.nil?
+        exhibit.patrons << patron
         @revenue += exhibit.cost
       end
     end
   end
 
-  def patrons_of(exhibit)
-
-  end 
+  def patrons_of(exhibit_name)
+    exhibit = @exhibits.find { |exhibit| exhibit.name == exhibit_name }
+    exhibit.patrons
+  end
 
 end
