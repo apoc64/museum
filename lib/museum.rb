@@ -1,5 +1,3 @@
-
-
 class Museum
   attr_reader :name,
               :exhibits,
@@ -39,6 +37,15 @@ class Museum
     sorted.map do |exhibit|
       exhibit.name
     end.reverse
+  end
+
+  def remove_unpopular_exhibits(threshold)
+    # exhibits_to_remove = []
+    @exhibits.each do |exhibit|
+      if exhibit.patrons.count <= threshold
+        @exhibits.delete(exhibit)
+      end
+    end
   end
 
 end

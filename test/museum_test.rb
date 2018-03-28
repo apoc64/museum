@@ -64,11 +64,46 @@ class MuseumTest < MiniTest::Test
 
     assert_equal [bob, sally], dmns.patrons_of("Dead Sea Scrolls")
     assert_equal [bob], dmns.patrons_of("Gems and Minerals")
-end
-#
-# exhibits_by_attendees - this method returns an array of exhibits sorted from most patrons to least patrons.
-#
-# remove_unpopular_exhibits(threshold) - this method will remove any exhibit where the number of patrons who attended it is less than the threshold.
+  end
+  #
+  def test_it_can_return_exhibits_by_attendees
+    dmns = Museum.new("Denver Museum of Nature and Science")
+    dmns.add_exhibit("Dead Sea Scrolls", 10)
+    dmns.add_exhibit("Gems and Minerals", 0)
+    bob = Patron.new("Bob")
+    bob.add_interest("Gems and Minerals")
+    bob.add_interest("Dead Sea Scrolls")
+    bob.add_interest("Imax")
+    sally = Patron.new("Sally")
+    sally.add_interest("Dead Sea Scrolls")
+    dmns.admit(bob)
+    dmns.admit(sally)
+
+    assert_equal ["Dead Sea Scrolls", "Gems and Minerals"], dmns.exhibits_by_attendees
+    #could use more tests for edge cases
+    # - this method returns an array of exhibits sorted from most patrons to least patrons.
+  end
+
+  def test_it_can_remove_unpopular_exhibits
+    dmns = Museum.new("Denver Museum of Nature and Science")
+    dmns.add_exhibit("Dead Sea Scrolls", 10)
+    dmns.add_exhibit("Gems and Minerals", 0)
+    bob = Patron.new("Bob")
+    bob.add_interest("Gems and Minerals")
+    bob.add_interest("Dead Sea Scrolls")
+    bob.add_interest("Imax")
+    sally = Patron.new("Sally")
+    sally.add_interest("Dead Sea Scrolls")
+    dmns.admit(bob)
+    dmns.admit(sally)
+
+
+    dmns.remove_unpopular_exhibits(1)
+    # - this method will remove any exhibit where the number of patrons who attended it is less than the threshold.
+    assert_equal ["Dead Sea Scrolls"], dmns.exhibits_by_attendees
+
+  end
+
 end
 #
 # Iteration 4 - The Runner
