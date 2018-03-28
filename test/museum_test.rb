@@ -16,8 +16,13 @@ class MuseumTest < MiniTest::Test
     assert_equal "Denver Museum of Nature and Science", dmns.name
 end
 
-# > dmns.add_exhibit("Dead Sea Scrolls", 10)
-# > dmns.add_exhibit("Gems and Minerals", 0)
+def test_it_can_add_exhibits
+  dmns = Museum.new("Denver Museum of Nature and Science")
+  dmns.add_exhibit("Dead Sea Scrolls", 10)
+  dmns.add_exhibit("Gems and Minerals", 0)
+  assert_equal ({"Dead Sea Scrolls" => 10, "Gems and Minerals" => 0}), dmns.exhibits
+end
+
 # Iteration 2 - Admitting Patrons and Revenue
 # Museums can admit Patrons. When a Patron is admitted, the Museum gets 10 dollars for general admittance plus revenue for each exhibit the Patron is interested in. Some Patrons have interests for which there is no exhibit, and thus no revenue is generated. Follow this interaction pattern:
 #
