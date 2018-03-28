@@ -6,12 +6,10 @@ class Museum
   def initialize(name)
     @name = name
     @exhibits = []
-    # {} #{"name" => cost}
     @revenue = 0
   end
 
   def add_exhibit(name, cost)
-    # @exhibits[name] = cost
     exhibit = Exhibit.new(name, cost)
     exhibits << exhibit
   end
@@ -40,7 +38,6 @@ class Museum
   end
 
   def remove_unpopular_exhibits(threshold)
-    # exhibits_to_remove = []
     @exhibits.each do |exhibit|
       if exhibit.patrons.count <= threshold
         @exhibits.delete(exhibit)
